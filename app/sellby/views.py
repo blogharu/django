@@ -32,18 +32,18 @@ def add_record(request):
         context["isSuccess"] = True
     if request.method == "POST":
         result = {}
-        print(request.FILES)
+        result["expiryDate"] = request.POST["expiry-date"]
+        if result["expiryDate"] and 'expiry-date-image' in request.FILES:
+            helpers.saveExpiryImage(request)
         if 'barcode' in request.FILES:
             barcode = barcodes.helpers.djangoImg2Barcode(request)
+            print(barcode)
             if barcode:
                 barcode = barcode.decode('utf-8')
                 barcodesFilter = Barcode.objects.filter(barcode=barcode)
                 if len(barcodesFilter) == 0:
                     return redirect(reverse('barcodes:add_barcode')+'?barcode={}&expiryDate={}'.format(barcode, request.POST.get('expiry-date')))
                 result["barcode"] = list(barcodesFilter.values())[-1]['id']
-        result["expiryDate"] = request.POST["expiry-date"]
-        if result["expiryDate"] and 'expiry-date-image' in request.FILES:
-            helpers.saveExpiryImage(request)
         form = RecordForm(result)
         if form.is_valid():
             Record(barcode=barcodesFilter.get(id=result["barcode"]), expiryDate=result["expiryDate"], user=request.user).save()

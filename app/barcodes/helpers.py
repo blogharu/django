@@ -31,6 +31,7 @@ def initBarcodes():
 def djangoImg2Barcode(request):
     if Barcode.objects.all().count() < 10:
         initBarcodes()
+    print(request.FILES.get('barcode'))
     f = request.FILES.get('barcode')
     p = ImageFile.Parser()
     while 1:

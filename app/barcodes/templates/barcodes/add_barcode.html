@@ -1,0 +1,26 @@
+{% extends 'basic.html' %}
+{{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center my-5">
+    <form method="post" class="post-form" action="{% url 'barcodes:add_barcode' %}?barcode={{barcode}}&expiryDate={{expiryDate}}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        {% if barcode %}
+        <div class="alert alert-danger">
+            <strong> Product Not Found</strong>
+        </div>
+        {% endif %}
+        <h4 class="mb-3">상품 등록</h4>
+        <div class="form-group">
+            <label for="barcode">바코드</label>
+            <input type="text" class="form-control" name="barcode" id="barcode" value="{{barcode}}">
+        </div>
+        <div class="form-group">
+            <label for="name">상품 이름</label>
+            <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <div class="d-grid gap-2 d-flex justify-content-end mt-2">
+            <button type="submit" class="btn btn-primary">다음</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-2 position-relative">
+        <a href="{% url 'sellby:calendar' %}?year={{pyear}}&month={{pmonth}}" class="btn col-auto b-0 p-0 h5"><</a>
+        <div class="col-auto text-center h5">{{curCalendar}}</div>
+        <a href="{% url 'sellby:calendar' %}?year={{nyear}}&month={{nmonth}}" class="btn col-auto h5 b-0 p-0">></a>
+        <a href="{% url 'sellby:add_record' %}" class="col-auto btn btn-primary p-0 me-1 btn-sm position-absolute top-0 end-0">상품 추가</a>
+    </div>
+    <div class="row">
+        <div class="col text-center p-0 border">Sun</div>
+        <div class="col text-center p-0 border">Mon</div>
+        <div class="col text-center p-0 border">Tue</div>
+        <div class="col text-center p-0 border">Wed</div>
+        <div class="col text-center p-0 border">Thu</div>
+        <div class="col text-center p-0 border">Fri</div>
+        <div class="col text-center p-0 border">Sat</div>
+    </div>
+    {% for week in month %}
+    <div class="row">
+        {% for day in week %}
+        {% if day.isNotThisMonth is True %}
+        <div class="col border py-5 bg-light">
+            <span class="h3 text-muted">
+        {% elif day.isToday is True %}
+        <div class="col border py-5 bg-info">
+            <span class="h3">
+        {% else %}
+        <div class="col border py-5">
+            <span class="h3">
+        {% endif %}
+                {{day.date}}
+            </span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

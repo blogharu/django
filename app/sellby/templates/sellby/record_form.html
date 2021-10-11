@@ -1,0 +1,30 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center my-5">
+    <form method="post" class="post-form" action="{% url 'sellby:add_record' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        {% if isSuccess %}
+        <div class="alert alert-info">
+            <strong> Record is saved </strong>
+        </div>
+        {% endif %}
+        <h4 class="mb-3">상품 추가</h4>
+        <div class="form-group">
+            <label for="barcode">상품 바코드 이미지</label>
+            <input type="file" class="form-control" accept="image/*" name="barcode" id="barcode">
+        </div>
+        <div class="form-group">
+            <label for="expiry-date">유통기한</label>
+            <input type="date" class="form-control" name="expiry-date" id="expiry-date">
+        </div>
+        <div class="form-group">
+            <label for="expiry-date-image">유통기한 이미지 (선택)</label>
+            <input type="file" class="form-control" accept="image/*" name="expiry-date-image" id="expiry-date-image">
+        </div>
+        <div class="d-grid gap-2 d-flex justify-content-end mt-2">
+            <button type="submit" class="btn btn-primary">다음</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

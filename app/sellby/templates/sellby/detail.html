@@ -1,0 +1,17 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center my-5">
+    <form method="post" class="post-form" action="{% url 'sellby:add_record' %}">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <h4 class="mb-3">상품 추가</h4>
+        <div class="d-lg-none form-group">
+            <label for="barcode">상품 바코드 이미지</label>
+            <input type="file" class="form-control" accept="image/*" name="barcode" id="barcode">
+        </div>
+        <div class="d-grid gap-2 d-flex justify-content-end mt-2">
+            <button type="submit" class="btn btn-primary">다음</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -12,8 +12,8 @@
     <title>Django Projects</title>
   </head>
   <body class="">
-    <header class="navbar navbar-light navbar-expand-sm sticky-top">
-      <div class="container">
+    <header class="navbar navbar-light navbar-expand-sm sticky-top bg-white pb-0">
+      <div class="container border-bottom">
         <a href="/" class="navbar-brand h1">Django Projects</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-2">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Players</a>
+              <a class="nav-link" aria-current="page" href="{% url 'sellby:calendar' %}">달력</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Members</a>
+              <a class="nav-link" href="{% url 'sellby:add_record' %}">상품 추가</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Records</a>
+              <a class="nav-link" href="{% url 'sellby:detail' %}">오늘</a>
             </li>
             <li class="nav-item">
               {% if user.is_authenticated %}
@@ -40,7 +40,7 @@
         </div>
       </div>
     </header>
-    <div class="container">
+    <div class="container ">
       {% block content %}
       {% endblock %}
     </div>

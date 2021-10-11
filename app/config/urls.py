@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import render
+from django.shortcuts import redirect
+from django.conf.urls.static import static
+from django.conf import settings
 
 def index(request):
-    context = {}
-    return render(request, 'index.html', context)
+    if request.user.is_authenticated:
+        return redirect('sellby/')
+    return redirect('users/login')
 
 urlpatterns = [
     path('', index),
@@ -27,4 +30,4 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('barcodes/', include('barcodes.urls')),
     path('sellby/', include('sellby.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

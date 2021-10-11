@@ -1,0 +1,23 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="row">
+    {% for card in cards %}
+    <div class="col-sm-6 col-md-4 col-lg-3 card p-0">
+        <div class="card-body">
+            <h5 class="card-title">{{card.month}}/{{card.day}} {{card.weekday}}</h5>
+            {% if card.isToday %}
+            <span class="badge rounded-pill bg-primary mt-1">today</span>
+            {% endif %}
+            {% if card.isPrev %}
+            <span class="badge rounded-pill bg-warning mt-1 text-dark">yesterday</span>
+            {% endif %}
+            <span class="badge rounded-pill bg-success mt-1">done</span>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">처리도: 30/40</li>
+          <a href="#" class="btn btn-primary">Update</a>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

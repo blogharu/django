@@ -25,10 +25,13 @@ SECRET_KEY = 'django-insecure-*#*&yuko#6_(ox9ascu2!qw6_urqqso0ns0wj&%9)iamce4%xy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['220.70.245.95','192.168.0.136', '127.0.0.1']
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 # Application definition
 
@@ -110,13 +113,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+#TIME_ZONE = 'UTC'
+#USE_TZ = True
+TIME_ZONE = 'Asia/Seoul'
+USE_TZ = False
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)

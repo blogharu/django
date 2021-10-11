@@ -1,7 +1,8 @@
 {% extends 'basic.html' %}
 {% block content %}
-<div class="container my-3">
+<div class="d-flex justify-content-center my-5">
     <form method="post" class="post-form" action="{% url 'users:login' %}">
+        <h4 class="mb-3">로그인</h4>
         {% csrf_token %}
         {% include "form_errors.html" %}
         <div class="form-group">
@@ -14,7 +15,10 @@
             <input type="password" class="form-control" name="password" id="password"
                    value="{{ form.password.value|default_if_none:'' }}">
         </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
+        <div class="d-grid gap-2 d-flex justify-content-end mt-2">
+            <a href='{% url 'users:signup' %}' class="btn btn-link">계정 만들기</a>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </div>
     </form>
 </div>
 {% endblock %}

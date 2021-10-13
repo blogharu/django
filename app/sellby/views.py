@@ -11,18 +11,28 @@ from django.urls import reverse
 
 @login_required(login_url='/users/login/')
 def calendar(request):
-    context = helpers.initCalendarContext(int(request.GET.get('year', 0)), int(request.GET.get('month', 0)))
+    context = helpers.initCalendarContext(request)
     return render(request, 'sellby/calendar.html', context)
 
 @login_required(login_url='/users/login/')
 def index(request):
-    context = helpers.initIndexContext(10)
+    context = helpers.initIndexContext(request, 10)
     return render(request, 'sellby/index.html', context)
 
 @login_required(login_url='/users/login/')
-def detail(request):
-    context = {}
-    return render(request, 'sellby/detail.html', context)
+def details(request):
+    context = helpers.initDetailsContext(request)
+    if request.method == "POST":
+        records = context['recordsIsRemoved'] | context['recordsIsNotRemoved']
+        for record in records:
+            result = request.POST.get(str(record.id), "")
+            if result == "on":
+                record.isRemoved = True
+            else:
+                record.isRemoved = False
+            record.save()
+            context["isSuccess"] = True
+    return render(request, 'sellby/details.html', context)
 
 
 @login_required(login_url='/users/login/')

@@ -8,4 +8,7 @@ class Record(models.Model):
     barcode = models.ForeignKey(Barcode, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     expiryDate = models.DateField()
-    isRemoved = models.BooleanField(default=True)
+    isRemoved = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('barcode', 'user', 'expiryDate')

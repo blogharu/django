@@ -1,0 +1,59 @@
+{% extends 'basic.html' %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <h4 class="mb-0 text-center">
+      <a href="{% url 'sellby:details' %}?year={{prev.year}}&month={{prev.month}}&day={{prev.day}}" class="btn h4"><</a>
+      {{today.year}}/{{today.month}}/{{today.day}}
+      <a href="{% url 'sellby:details' %}?year={{next.year}}&month={{next.month}}&day={{next.day}}" class="btn h4">></a>
+    </h4>
+    <form id="accordion" method="post" class="post-form" action="{% url 'sellby:details' %}?year={{today.year}}&month={{today.month}}&day={{today.day}}">
+        {% if isSuccess %}
+        <div class="alert alert-info">
+            <strong>저장되었습니다</strong>
+        </div>
+        {% endif %}
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <div class="card">
+          <div class="card-header">
+            <a class="btn w-100" data-bs-toggle="collapse" href="#isNotRemoved">
+              폐기 대상 상품 {{recordsIsNotRemoved|length}}/100
+            </a>
+          </div>
+          <div id="isNotRemoved" class="collapse show" data-bs-parent="#accordion">
+            <div class="card-body">
+
+              {% for record in recordsIsNotRemoved %}
+              <div class="form-check">
+                  <label class="form-check-label" for="{{record.id}}">{{record.barcode.name}}</label>
+                  <input type="checkbox" class="form-check-input" name="{{record.id}}" id="{{record.id}}">
+              </div>
+              {% empty %}
+              폐기 대상 상품이 없습니다.
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <a class="collapsed btn w-100" data-bs-toggle="collapse" href="#isRemoved">
+              폐기 완료 상품 {{recordsIsRemoved|length}}/100
+            </a>
+          </div>
+          <div id="isRemoved" class="collapse" data-bs-parent="#accordion">
+            <div class="card-body">
+              {% for record in recordsIsRemoved %}
+              <div class="form-check">
+                  <label class="form-check-label" for="{{record.id}}">{{record.barcode.name}}</label>
+                  <input type="checkbox" class="form-check-input" name="{{record.id}}" id="{{record.id}}" checked>
+              </div>
+              {% empty %}
+              폐기 완료 상품이 없습니다.
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 sticky-top">저장</button>
+    </form>
+</div>
+{% endblock %}

@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*#*&yuko#6_(ox9ascu2!qw6_urqqso0ns0wj&%9)iamce4%xy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['220.70.245.95','192.168.0.136', '127.0.0.1']
+ALLOWED_HOSTS = ['blogharu.iptime.org','220.70.245.95','192.168.0.136', '127.0.0.1']
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

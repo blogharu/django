@@ -20,17 +20,18 @@
     <div class="row">
         {% for day in week %}
         {% if day.isNotThisMonth is True %}
-        <div class="col border py-5 bg-light">
-            <span class="h3 text-muted">
+        <div style=" cursor: pointer;" onclick="location.href='{% url 'sellby:details' %}?year={{day.year}}&month={{day.month}}&day={{day.day}}';" class="col border py-5 bg-light">
+            <h3 class="text-muted">
         {% elif day.isToday is True %}
-        <div class="col border py-5 bg-info">
-            <span class="h3">
+        <div style=" cursor: pointer;" onclick="location.href='{% url 'sellby:details' %}?year={{day.year}}&month={{day.month}}&day={{day.day}}';" class="col border py-5 bg-info">
+            <h3>
         {% else %}
-        <div class="col border py-5">
-            <span class="h3">
+        <div style=" cursor: pointer;" onclick="location.href='{% url 'sellby:details' %}?year={{day.year}}&month={{day.month}}&day={{day.day}}';" class="col border py-5">
+            <h3>
         {% endif %}
-                {{day.date}}
-            </span>
+                {{day.day}}
+            </h3>
+            <div>{{day.recordsIsRemoved|length}}/{{day.records|length}}</div>
         </div>
         {% endfor %}
     </div>

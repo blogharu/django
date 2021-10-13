@@ -2,8 +2,9 @@
 {% block content %}
 <div class="row">
     {% for card in cards %}
-    <div class="col-sm-6 col-md-4 col-lg-3 card p-0">
-        <div class="card-body">
+    <div class="col-md-6 col-lg-4 card p-0">
+      <div class="row g-0">
+        <div class="card-body col-auto">
             <h5 class="card-title">{{card.month}}/{{card.day}} {{card.weekday}}</h5>
             {% if card.isToday %}
             <span class="badge rounded-pill bg-primary mt-1">today</span>
@@ -11,12 +12,30 @@
             {% if card.isPrev %}
             <span class="badge rounded-pill bg-warning mt-1 text-dark">yesterday</span>
             {% endif %}
-            <span class="badge rounded-pill bg-success mt-1">done</span>
+            {% if card.records|length == 0 or card.records|length == card.recordsIsRemoved|length %}
+            <span class="badge rounded-pill bg-success mt-1">complete</span>
+            {% else %}
+            <span class="badge rounded-pill bg-danger mt-1">incomplete</span>
+            {% endif %}
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">처리도: 30/40</li>
-          <a href="#" class="btn btn-primary">Update</a>
-        </ul>
+        <div class="col-auto"></div>
+        {% if card.records|length == 0 %}
+        <button href="#" class="btn btn-secondary col-auto">
+          <div class="d-flex align-items-center h-100">
+            <h6 class="m-0">페기 없음</h6>
+          </div>
+        </button>
+        {% else %}
+        <a href="{% url 'sellby:details' %}?year={{card.year}}&month={{card.month}}&day={{card.day}}" class="btn btn-primary col-auto">
+          <div class="d-flex align-items-center h-100">
+            <div>
+              <h4 class="m-0">{{card.recordsIsRemoved|length}}/{{card.records|length}}</h4>
+              <h6 class="m-0">상태 갱신</h6>
+            </div>
+          </div>
+        </a>
+        {% endif %}
+      </div>
     </div>
     {% endfor %}
 </div>
